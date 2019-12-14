@@ -6,7 +6,6 @@ const hoursLeft = document.getElementById('hoursLeft');
 
 
 
-const INTERVAL = 10;
 const date = new Date(/*"December 30, 2019 23:59:56"*/);
 const newYearDate = new Date(date.getFullYear(), 12, 31, 23, 59, 59, 59);
 const dateBeforeNewYear = new Date();
@@ -22,7 +21,7 @@ function startTimer() {
         date.setHours(dateBeforeNewYear.getHours() - 3, dateBeforeNewYear.getMinutes(), dateBeforeNewYear.getSeconds(), dateBeforeNewYear.getMilliseconds());
         //why do we subtract 1 and 3?
         refreshTimerValue();
-        intervalId = setInterval(incrementDateSeconds, INTERVAL);
+        intervalId = setInterval(incrementDateSeconds, 1000);
     }
 }
 
@@ -33,7 +32,7 @@ window.addEventListener('focus', function () {
 });
 
 function incrementDateSeconds() {
-    date.setMilliseconds(date.getMilliseconds() - INTERVAL);
+    date.setSeconds(date.getSeconds() - 1);
     refreshTimerValue();
 }
 
