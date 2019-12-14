@@ -1,5 +1,9 @@
 body{
     font-family: monospace;
+    background-image: url("http://nochdobra.com/wp-content/uploads/2017/12/3.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 div{
@@ -13,4 +17,10 @@ div{
 button{
     text-transform: uppercase;
     align-self: stretch;
+}
+
+#timerValue{
+    font-size: 36px;
+    margin: 0 auto;
+    color: white;
 }
