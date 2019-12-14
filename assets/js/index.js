@@ -17,6 +17,7 @@ window.onload = onLoadHandler;
 
 function startTimer() {
     if (!intervalId) {
+
         date.setMonth(dateBeforeNewYear.getMonth() - 1, dateBeforeNewYear.getDate());
         date.setHours(dateBeforeNewYear.getHours() - 3, dateBeforeNewYear.getMinutes(), dateBeforeNewYear.getSeconds(), dateBeforeNewYear.getMilliseconds());
         //why do we subtract 1 and 3?
@@ -28,7 +29,7 @@ function startTimer() {
 
 
 window.addEventListener('focus', function () {
-    window.location.reload(); // temporary solve clicking on other page problem
+    // dateBeforeNewYear.setTime(newYearDate - date);
 });
 
 function incrementDateSeconds() {
@@ -128,7 +129,7 @@ function initsnow() {
         marginbottom = window.innerHeight;
         marginright = window.innerWidth;
     }
-    var snowsizerange = snowmaxsize - snowminsize;
+    let snowsizerange = snowmaxsize - snowminsize;
     for (let i = 0; i <= snowmax; i++) {
         crds[i] = 0;
         lftrght[i] = Math.random() * 15;
@@ -180,7 +181,7 @@ function movesnow() {
             snow[i].posy = 0;
         }
     }
-    var timer = setTimeout("movesnow()", 50);
+    let timer = setTimeout("movesnow()", 50);
 }
 
 for (let i = 0; i <= snowmax; i++) {
