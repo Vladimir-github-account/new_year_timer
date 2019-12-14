@@ -13,7 +13,7 @@ dateBeforeNewYear.setTime(newYearDate - date);
 
 
 let intervalId = null;
-monthsLeft.onclick = startTimer;
+window.onload = onLoadHandler;
 
 function startTimer() {
     if (!intervalId) {
@@ -25,7 +25,7 @@ function startTimer() {
     }
 }
 
-monthsLeft.click();
+
 
 window.addEventListener('focus', function () {
     window.location.reload(); // temporary solve clicking on other page problem
@@ -60,6 +60,13 @@ function formatTwoDigits(value) {
     return value < 10 ? `0${value}` : value;
 }
 
+
+function onLoadHandler (){
+    startTimer();
+    if (browserok) {
+         initsnow();
+    }
+}
 
 /*###############################################*/
 
@@ -191,7 +198,4 @@ for (let i = 0; i <= snowmax; i++) {
     }
 
 
-}
-if (browserok) {
-    window.onload = initsnow;
 }
