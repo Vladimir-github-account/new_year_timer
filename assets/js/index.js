@@ -1,29 +1,36 @@
 'use strict';
 
-const timerValueElem = document.getElementById('timerValue');
+const monthsLeft = document.getElementById('monthsLeft');
+const daysLeft = document.getElementById('daysLeft');
+const hoursLeft = document.getElementById('hoursLeft');
 
 
 
 const INTERVAL = 10;
-const date = new Date();
+const date = new Date(/*"December 30, 2019 23:59:56"*/);
 const newYearDate = new Date(date.getFullYear(), 12, 31, 23, 59, 59, 59);
 const dateBeforeNewYear = new Date();
 dateBeforeNewYear.setTime(newYearDate - date);
 
 
 let intervalId = null;
-window.onclick = startTimer;
+monthsLeft.onclick = startTimer;
 
 function startTimer() {
-    date.setMonth(dateBeforeNewYear.getMonth() - 1, dateBeforeNewYear.getDate());
-    date.setHours(dateBeforeNewYear.getHours() - 3, dateBeforeNewYear.getMinutes(), dateBeforeNewYear.getSeconds(), dateBeforeNewYear.getMilliseconds());
-    //why do we subtract 1 and 3?
-    refreshTimerValue();
-    intervalId = setInterval(incrementDateSeconds, INTERVAL);
+    if (!intervalId) {
+        date.setMonth(dateBeforeNewYear.getMonth() - 1, dateBeforeNewYear.getDate());
+        date.setHours(dateBeforeNewYear.getHours() - 3, dateBeforeNewYear.getMinutes(), dateBeforeNewYear.getSeconds(), dateBeforeNewYear.getMilliseconds());
+        //why do we subtract 1 and 3?
+        refreshTimerValue();
+        intervalId = setInterval(incrementDateSeconds, INTERVAL);
+    }
 }
 
-timerValueElem.click();
+monthsLeft.click();
 
+window.addEventListener('focus', function () {
+    window.location.reload(); // temporary solve clicking on other page problem
+});
 
 function incrementDateSeconds() {
     date.setMilliseconds(date.getMilliseconds() - INTERVAL);
@@ -31,22 +38,34 @@ function incrementDateSeconds() {
 }
 
 function refreshTimerValue() {
-    timerValueElem.innerText = `${formatTwoDigits(date.getMonth())} months:${formatTwoDigits(date.getDate() - 1)}:${formatTwoDigits(date.getHours())}:${formatTwoDigits(date.getMinutes())}:${formatTwoDigits(date.getSeconds())}:${formatThreeDigits(date.getMilliseconds())}`;
-} // if click on other page in browser timer will be stopped until we not return
+    if (date.getMonth() > 0) {
+        monthsLeft.innerText = `${date.getMonth()} месяцев`;
+    } else {
+        monthsLeft.style.display= "none";
+    }
+
+
+    if (date.getDate() > 1) {
+
+        daysLeft.innerText = `${date.getDate() - 1} дней`
+    } else if (date.getMonth() > 0 ) {
+        daysLeft.innerText = `${date.getDate() - 1} дней`
+    } else {
+        daysLeft.style.display= "none";
+    }
+
+    hoursLeft.innerText = `${formatTwoDigits(date.getHours())}:${formatTwoDigits(date.getMinutes())}:${formatTwoDigits(date.getSeconds())} `;
+}
 
 function formatTwoDigits(value) {
     return value < 10 ? `0${value}` : value;
-}
-
-function formatThreeDigits(value) {
-    return value < 100 ? value < 10 ? `00${value}` : `0${value}` : value;
 }
 
 
 /*###############################################*/
 
 // Количество снежинок на странице (Ставьте в границах 30-40, больше не рекомендую)
-let snowmax = 35;
+let snowmax = 40;
 
 // Установите цвет снега, добавьте столько цветов сколько пожелаете
 let snowcolor = ["#AAAACC", "#DDDDFF", "#CCCCDD", "#F3F3F3", "#F0FFFF", "#FFFFFF", "#EFF5FF"]
