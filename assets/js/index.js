@@ -28,9 +28,7 @@ function startTimer() {
 
 
 
-window.addEventListener('focus', function () {
-    // dateBeforeNewYear.setTime(newYearDate - date);
-});
+
 
 function incrementDateSeconds() {
     date.setSeconds(date.getSeconds() - 1);
